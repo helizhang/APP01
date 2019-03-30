@@ -1,0 +1,100 @@
+<div style="margin: 0 10%; overflow-y: scroll;">
+    <!--输入框 表单-->
+    <div style="">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2" style="text-align: left;">请选择业务：</label>
+                <div class="col-sm-10">
+                    <select ng-options="biz.bk_biz_id as biz.bk_biz_name for biz in biz_list"
+                            ng-model="filter_obj.biz_id" class="form-control">
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 " style="text-align: left;">请输入主机IP：</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" ng-model="filter_obj.ip" rows="3" placeholder="多个IP用回车分割"
+                              style="height: 90px !important;"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button type="button" class="btn btn-success" style="float: left;" ng-click="search_test()">查询
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!--内联布局表单-->
+    <fieldset class="fieldsetName">
+        <legend style="">查询条件</legend>
+        <div class="container-fluid">
+            <div style="float:left;">
+                <label style="float:left;margin-top: 5px;">用户名：</label>
+                <input type="text" ng-model="args.username" style="width:150px;float:left;"
+                       class="form-control"/>
+            </div>
+            <div style="float:left;margin-left: 5px;">
+                <label style="float:left;margin-top: 5px;">邮箱：</label>
+                <input type="text" ng-model="args.mailbox" style="width:150px;float:left;"
+                       class="form-control"/>
+            </div>
+            <div style="float:left;margin-left:15px;">
+                <button class="btn btn-sm btn-info">查询</button>
+            </div>
+            <div style="float:right;margin-left:15px;">
+                <button class="btn btn-sm btn-primary">添加管理员邮箱</button>
+            </div>
+        </div>
+    </fieldset>
+
+    <button class="btn btn-primary" ng-click="go_confirm()">确认提示</button>
+    <button class="btn btn-primary" ng-click="go_modal_page()">模态框</button>
+    <button class="btn btn-primary" ng-init="show_tables=false" ng-click="show_tables=!show_tables">图表</button>
+    <button class="btn btn-primary" ng-init="show_list=false" ng-click="show_list=!show_list">列表</button>
+    <!--图表-->
+    <div ng-if="show_tables" style="width:100%;text-align:center;padding: 10px 10%">
+
+        <div style="overflow-y: scroll; width:100%;height: 700px;">
+            <!--折线图-->
+            <div ng-repeat="data in data_list" class="left" style="width:50%;height: 400px;background-color: #fff;">
+                <!--<div style="height: 20px;float: left;"><span>{{data.ip}}</span></div>-->
+                <div style="width: 100%;height: 400px;" highcharts="data.chartOptions"></div>
+            </div>
+
+            <!--饼图-->
+            <div style="width: 50%;height: 400px;overflow-y: scroll;">
+                <div style="width: 100%;height: 400px;" cw-piechart="updateInfoReports"></div>
+                <!--&lt;!&ndash;<div highcharts="test_chart" style="width: 50%; height: 400px;float: left"></div>&ndash;&gt;-->
+            </div>
+
+            <!--柱状图-->
+            <div style="width: 100%;height: 400px;float: left;">
+                <div highcharts="bar_chart" style="width: 100%; height: 400px;float: left"></div>
+
+            </div>
+
+            <!--表格-->
+            <div style="width: 100%;height: 400px;float: left;">
+                <table class="table table-hover" style="width: 100%;">
+                    <tr>
+                        <th ng-repeat="h in headers">{{h}}</th>
+                        <th ng-if="show_pie">操作</th>
+                    </tr>
+                    <tr ng-repeat="table in disk_data_list">
+                        <td style="text-align: left" ng-repeat="i in table">{{ i }}</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div ng-if="show_list" style="width:100%;text-align:center;padding: 10px 10%">
+    <!--列表-->
+    <div cw-adaptbody="180" ng-grid="gridOption"></div>
+</div>

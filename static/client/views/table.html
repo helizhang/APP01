@@ -1,0 +1,32 @@
+<div style="width:100%;text-align:center;padding: 10px 10%">
+
+    <div style="overflow-y: scroll; width:100%;height: 700px;">
+        <!--折线图-->
+        <div ng-repeat="data in data_list" style="width:50%;height: 400px;background-color: #fff;float: left ">
+            <!--<div style="height: 20px;float: left;"><span>{{data.ip}}</span></div>-->
+            <div style="width: 100%;height: 400px;" highcharts="data.chartOptions"></div>
+        </div>
+
+        <!--饼图-->
+        <div style="width: 50%;height: 400px;overflow-y: scroll;">
+            <div style="width: 100%;height: 400px;float: left" ng-if="show_pie" cw-piechart="updateInfoReports"></div>
+            <!--&lt;!&ndash;<div highcharts="test_chart" style="width: 50%; height: 400px;float: left"></div>&ndash;&gt;-->
+        </div>
+
+        <!--表格-->
+        <div style="width: 100%;height: 400px;">
+            <table class="table">
+                <tr>
+                    <th ng-repeat="h in headers">{{h}}</th>
+                    <th ng-if="show_pie">操作</th>
+                </tr>
+                <tr ng-repeat="table in disk_data_list">
+                    <td style="text-align: left" ng-repeat="i in table">{{ i }}</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+
+</div>
